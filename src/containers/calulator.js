@@ -1,4 +1,6 @@
 import React from 'react'
+import Buttons from '../components/buttons';
+import Display from '../components/display';
 
 
 
@@ -13,48 +15,56 @@ class Calculator extends React.Component {
             waitingForNewValue: false
         }
     }
-addNumbers = (a , b) => {
-return a + b;
-}
-subtractNumbers = (a, b) => {
-return a - b;
-}
-multiplyNumbers = (a, b) => {
-return a * b;
-}
-divideNumbers = (a, b) => {
-return a / b; 
-}
-percentage = (num) => {
-return num / 100;
-}
-clear = (num) => {
-return '';
-}
-posAndNeg = (num) => {
-return num;
-}
+    addNumbers = (a, b) => {
+        return a + b;
+    }
+    subtractNumbers = (a, b) => {
+        return a - b;
+    }
+    multiplyNumbers = (a, b) => {
+        return a * b;
+    }
+    divideNumbers = (a, b) => {
+        return a / b;
+    }
+    percentage = (num) => {
+        return num / 100;
+    }
+    clear = (num) => {
+        return '';
+    }
+    posAndNeg = (num) => {
+        return num;
+    }
+
+    render() {
+        return (
+            <>
+                <div className='row'>
+                    <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={'0'} />
+
+                    <Buttons className='col-3' name={'AC'} />
+                    <Buttons className='col-3' name={'%'} />
+                    <Buttons className='col-3' name={'±'} />
+                    <Buttons className='col-3' name={'÷'} color={'orange'} />
+
+                    <Buttons className='col-3' name={'7'} />
+                    <Buttons className='col-3' name={'8'} />
+                    <Buttons className='col-3' name={'9'} />
+                    <Buttons className='col-3' name={'x'} color={'orange'} />
+
+                    <Buttons className='col-3' name={'4'} />
+                    <Buttons className='col-3' name={'5'} />
+                    <Buttons className='col-3' name={'6'} />
+                    <Buttons className='col-3' name={'-'} color={'orange'} />
+
+                    <Buttons className='col-6' name={'0'} />
+                    <Buttons className='col-3' name={'.'} />
+                    <Buttons className='col-3' name={'='} color={'orange'} />
+                </div>
+            </>
+        )
+    }
 }
 
-// .button {
-//     background-color: #E0E0E6;
-//     font-size: 40px;
-//     text-align: center;
-//     color: #666666;
-//     border-left: 1px solid #666666;
-//     border-bottom: 1px solid #666666;
-//     user-select: none;
-//     cursor: pointer;
-//     outline: none;
-//     -webkit-tap-highlight-color: rgba(0,0,0,0);
-//     display: block;
-//   }
-
-//   button:active {
-//     box-shadow: inset 0px 0px 80px 0px rgba(0,0,0,0.25);
-//   }
-
-//   .orange {
-//     background-color: #EE9B3E;
-//     color: #fff;
-//   }
+export default Calculator;
