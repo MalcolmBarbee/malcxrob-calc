@@ -38,8 +38,18 @@ class Calculator extends React.Component {
     }
 
     handleButtonEvent = (e) => {
-
-        console.log(e.target.value)
+        if ( !Number(this.state.displayValue) ) {
+            this.setState({
+                displayValue: e.target.value,
+            })
+            return;
+        }
+        let tempStr = this.state.displayValue;
+        tempStr += e.target.value;
+        this.setState({
+            displayValue: tempStr,
+        })
+        // console.log(e.target.value)
     }
 
     render() {
@@ -48,9 +58,9 @@ class Calculator extends React.Component {
         return (
             <>
                 <div className='row'>
-                    <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={'0'} />
+                    <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
 
-                    <Buttons className='col-3' name={'AC'} value={'AC'}  getValue={this.handleButtonEvent}/>
+                    <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'%'} value={'percent'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'±'} value={'abs'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'÷'} color={'orange'} value='divide' getValue={this.handleButtonEvent} />
