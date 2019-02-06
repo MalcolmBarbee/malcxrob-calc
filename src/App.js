@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Calculator from './containers/calculator';
 
 
 
@@ -6,10 +7,12 @@ class App extends Component {
   render() {
     return (
       <>
-          <h1>Hello World</h1>
+        <div className='container' style={{ 'margin': '30px auto', 'width': '50%' }}>
+          <Calculator />
+        </div>
       </>
     );
-  }
-}
+  };
+};
 
 export default App;
