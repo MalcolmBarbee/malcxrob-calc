@@ -38,19 +38,67 @@ class Calculator extends React.Component {
     }
 
     handleButtonEvent = (e) => {
-        if ( !Number(this.state.displayValue) ) {
+        const displayIsFalsy = !Number(this.state.displayValue);
+        const value = e.target.value;
+        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percent', 'abs', 'equal', 'decimal'];
+
+        if( operation.includes(value) ) {
+            // checks if event was an operation
+            this.handleOperationEvent(e);
+            return;
+        }
+        if ( displayIsFalsy ) {
             this.setState({
-                displayValue: e.target.value,
+                displayValue: value,
             })
             return;
         }
         let tempStr = this.state.displayValue;
-        tempStr += e.target.value;
+        tempStr += value;
         this.setState({
             displayValue: tempStr,
         })
         // console.log(e.target.value)
     }
+
+    handleOperationEvent = (e) => {
+        const value = e.target.value;
+
+        switch (value) {
+
+            case 'addition':
+            // this.addNumbers()
+            break;
+
+            case 'subtract': 
+            // this.subtractNumbers()
+            break;
+
+            case 'divide':
+            // this.divideNumbers()
+            break;
+
+            case 'multiply':
+            // this.multiplyNumbers()
+            break;
+
+            case 'percent':
+            // this.percentage()
+            break;
+
+            case 'abs':
+            // absolute
+            break;
+
+            case 'decimal':
+            // decimal
+            break;
+
+            case 'equal':
+            // equal
+            break;
+        }
+    };
 
     render() {
 
