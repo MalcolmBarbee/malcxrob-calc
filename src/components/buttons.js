@@ -7,18 +7,17 @@ class Buttons extends React.Component {
 
         this.state = {
 
-            'background-color': '#E0E0E6',
+            'backgroundColor': '#E0E0E6',
             'fontSize': '40px',
-            'text-align': 'center',
+            'textAlign': 'center',
             'color': '#666666',
-            'border-left': '1px solid #666666',
-            'border-bottom': '1px solid #666666',
-            'user-select': 'none',
+            'borderLeft': '1px solid #666666',
+            'borderBottom': '1px solid #666666',
+            'userSelect': 'none',
             'cursor': 'pointer',
             'outline': 'none',
             '-webkit-tap-highlight-color': 'rgba(0,0,0,0)',
             'display': 'block',
-            'focus': {'Outline': '0'},
 
         }
     }
