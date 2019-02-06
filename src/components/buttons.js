@@ -16,7 +16,7 @@ class Buttons extends React.Component {
             'userSelect': 'none',
             'cursor': 'pointer',
             'outline': 'none',
-            '-webkit-tap-highlight-color': 'rgba(0,0,0,0)',
+            // '-webkit-tap-highlight-color': 'rgba(0,0,0,0)',
             'display': 'block',
             'focus': {'Outline': '0'},
 
@@ -29,7 +29,7 @@ class Buttons extends React.Component {
             switch(this.props.color) {
 
                 case 'orange':
-                this.setState({'background-color': '#EE9B3E','color': '#fff',})
+                this.setState({'backgroundColor': '#EE9B3E','color': '#fff',})
                 break;
 
                 default:
@@ -41,8 +41,8 @@ class Buttons extends React.Component {
 
 
     clickedOn = () => {
-        if (!this.state['box-shadow']) {
-            this.setState({'box-shadow': 'inset 0px 0px 80px 0px rgba(0,0,0,0.25)'});
+        if (!this.state['boxShadow']) {
+            this.setState({'boxShadow': 'inset 0px 0px 80px 0px rgba(0,0,0,0.25)'});
         } else {
             return;
         }
@@ -50,18 +50,20 @@ class Buttons extends React.Component {
     }
 
     clickedOff = () => {
-        if (this.state['box-shadow']) {
-            this.setState({'box-shadow': undefined});
+        if (this.state['boxShadow']) {
+            this.setState({'boxShadow': undefined});
         } else {
             return;
         }
     }
 
 
+
+
     render() {
         return (
             <>
-                <button type='button' className={this.props.className}  onMouseDown={this.clickedOn} onMouseUp={this.clickedOff} style={this.state}>{this.props.name}</button>
+                <button type='button' className={this.props.className}  onMouseDown={this.clickedOn} onMouseUp={this.clickedOff} style={this.state} onClick={this.props.getValue} value={this.props.value}>{this.props.name}</button>
             </>
         )
     }
