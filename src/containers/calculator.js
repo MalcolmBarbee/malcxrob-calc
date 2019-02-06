@@ -16,16 +16,20 @@ class Calculator extends React.Component {
         }
     }
     addNumbers = (a, b) => {
-        return a + b;
+        const num = a + b
+        return num;
     }
     subtractNumbers = (a, b) => {
-        return a - b;
+        const num = a - b
+        return num;
     }
     multiplyNumbers = (a, b) => {
-        return a * b;
+        const num = a * b
+        return num;
     }
     divideNumbers = (a, b) => {
-        return a / b;
+        const num = a / b
+        return num;
     }
     percentage = (num) => {
         return num / 100;
@@ -33,13 +37,28 @@ class Calculator extends React.Component {
     clear = (num) => {
         return '';
     }
-    posAndNeg = (num) => {
-        return num;
-    }
+    // posAndNeg = (num) => {
+    //     const num = num * -1
+    //     return num;
+    // }
 
     handleButtonEvent = (e) => {
 
-        console.log(e.target.value)
+        if(!Number(this.state.displayValue)){
+            this.setState({
+                displayValue: e.target.value,
+            })
+            return this.newMethod(e);
+        
+        }
+    
+    }
+
+
+    newMethod(e) {
+        let tempStr = this.state.displayValue;
+        tempStr += e.target.value;
+        this.setState({ displayValue: tempStr });
     }
 
     render() {
@@ -48,7 +67,7 @@ class Calculator extends React.Component {
         return (
             <>
                 <div className='row'>
-                    <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={'0'} />
+                    <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
 
                     <Buttons className='col-3' name={'AC'} value={'AC'}  getValue={this.handleButtonEvent}/>
                     <Buttons className='col-3' name={'%'} value={'percent'} getValue={this.handleButtonEvent} />
