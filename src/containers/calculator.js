@@ -97,6 +97,9 @@ class Calculator extends React.Component {
             case 'equal':
             // equal
             break;
+
+            default:
+            break;
         }
     };
 
