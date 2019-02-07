@@ -16,20 +16,20 @@ class Calculator extends React.Component {
         }
     }
     addNumbers = (tempStr) => {
-        let storedStr = []
-        const value = e.target.value;
-        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
-        // let tempStr = this.state.displayValue;
-        // tempStr += this.value;
-        // this.setState({
-        //     displayValue: tempStr,
-        //})
-        
-        if(operation.includes(value) === 'addition'){
-        tempStr.push(storedStr);
-        }
-        const num = storedStr + tempStr
-        return num;
+        // let storedStr = []
+        // const value = e.target.value;
+        // const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
+        // // let tempStr = this.state.displayValue;
+        // // tempStr += this.value;
+        // // this.setState({
+        // //     displayValue: tempStr,
+        // //})
+
+        // if(operation.includes(value) === 'addition'){
+        // tempStr.push(storedStr);
+        // }
+        // const num = storedStr + tempStr
+        return;
     }
     subtractNumbers = (a, b) => {
         const num = a - b
