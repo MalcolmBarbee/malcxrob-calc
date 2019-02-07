@@ -15,32 +15,55 @@ class Calculator extends React.Component {
             waitingForNewValue: false
         }
     }
-    addNumbers = (a, b) => {
-        return a + b;
+    addNumbers = (tempStr) => {
+        // let storedStr = []
+        // const value = e.target.value;
+        // const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
+        // // let tempStr = this.state.displayValue;
+        // // tempStr += this.value;
+        // // this.setState({
+        // //     displayValue: tempStr,
+        // //})
+
+        // if(operation.includes(value) === 'addition'){
+        // tempStr.push(storedStr);
+        // }
+        // const num = storedStr + tempStr
+        return;
     }
     subtractNumbers = (a, b) => {
-        return a - b;
+        const num = a - b
+        return num;
     }
     multiplyNumbers = (a, b) => {
-        return a * b;
+        const num = a * b
+        return num;
     }
     divideNumbers = (a, b) => {
-        return a / b;
+        const num = a / b
+        return num;
     }
-    percentage = (num) => {
+    percent = (num) => {
         return num / 100;
     }
-    clear = (num) => {
-        return '';
+    
+    // posAndNeg = (num) => {
+    //     const num = num * -1
+    //     return num;
+    // }
+
+    equal = (num) => {
+
     }
-    posAndNeg = (num) => {
-        return num;
+
+    decimal = (num) => {
+
     }
 
     handleButtonEvent = (e) => {
         const displayIsFalsy = !Number(this.state.displayValue);
         const value = e.target.value;
-        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percent', 'abs', 'equal', 'decimal'];
+        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
 
         if( operation.includes(value) ) {
             // checks if event was an operation
@@ -67,7 +90,7 @@ class Calculator extends React.Component {
         switch (value) {
 
             case 'addition':
-            // this.addNumbers()
+             //this.addNumbers()
             break;
 
             case 'subtract': 
