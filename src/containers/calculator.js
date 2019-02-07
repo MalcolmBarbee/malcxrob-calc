@@ -15,8 +15,19 @@ class Calculator extends React.Component {
             waitingForNewValue: false
         }
     }
-    addNumbers = (a, b) => {
-        const num = a + b
+    addNumbers = (tempStr) => {
+        let storedStr = []
+        const value = e.target.value;
+        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
+        // let tempStr = this.state.displayValue;
+        // tempStr += this.value;
+        // this.setState({
+        //     displayValue: tempStr,
+        //})
+        if(operation.includes(value) === 'addition'){
+        tempStr.push(storedStr);
+        }
+        const num = storedStr + tempStr
         return num;
     }
     subtractNumbers = (a, b) => {
@@ -31,35 +42,85 @@ class Calculator extends React.Component {
         const num = a / b
         return num;
     }
-    percentage = (num) => {
+    percent = (num) => {
         return num / 100;
     }
-    clear = (num) => {
-        return '';
-    }
+    
     // posAndNeg = (num) => {
     //     const num = num * -1
     //     return num;
     // }
 
+    equal = (num) => {
+
+    }
+
+    decimal = (num) => {
+
+    }
+
     handleButtonEvent = (e) => {
+        const displayIsFalsy = !Number(this.state.displayValue);
+        const value = e.target.value;
+        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
 
-        if(!Number(this.state.displayValue)){
-            this.setState({
-                displayValue: e.target.value,
-            })
-            return this.newMethod(e);
-        
+        if( operation.includes(value) ) {
+            // checks if event was an operation
+            this.handleOperationEvent(e);
+            return;
         }
-    
-    }
-
-
-    newMethod(e) {
+        if ( displayIsFalsy ) {
+            this.setState({
+                displayValue: value,
+            })
+            return;
+        }
         let tempStr = this.state.displayValue;
-        tempStr += e.target.value;
-        this.setState({ displayValue: tempStr });
+        tempStr += value;
+        this.setState({
+            displayValue: tempStr,
+        })
+        // console.log(e.target.value)
     }
+
+    handleOperationEvent = (e) => {
+        const value = e.target.value;
+
+        switch (value) {
+
+            case 'addition':
+             //this.addNumbers()
+            break;
+
+            case 'subtract': 
+            // this.subtractNumbers()
+            break;
+
+            case 'divide':
+            // this.divideNumbers()
+            break;
+
+            case 'multiply':
+            // this.multiplyNumbers()
+            break;
+
+            case 'percent':
+            // this.percentage()
+            break;
+
+            case 'abs':
+            // absolute
+            break;
+
+            case 'decimal':
+            // decimal
+            break;
+
+            case 'equal':
+            // equal
+            break;
+        }
+    };
 
     render() {
 
@@ -69,7 +130,7 @@ class Calculator extends React.Component {
                 <div className='row'>
                     <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
 
-                    <Buttons className='col-3' name={'AC'} value={'AC'}  getValue={this.handleButtonEvent}/>
+                    <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'%'} value={'percent'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'±'} value={'abs'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'÷'} color={'orange'} value='divide' getValue={this.handleButtonEvent} />
