@@ -24,6 +24,7 @@ class Calculator extends React.Component {
         // this.setState({
         //     displayValue: tempStr,
         //})
+        
         if(operation.includes(value) === 'addition'){
         tempStr.push(storedStr);
         }
