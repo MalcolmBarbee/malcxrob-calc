@@ -46,7 +46,7 @@ class Calculator extends React.Component {
     percent = (num) => {
         return num / 100;
     }
-    
+
     // posAndNeg = (num) => {
     //     const num = num * -1
     //     return num;
@@ -63,14 +63,15 @@ class Calculator extends React.Component {
     handleButtonEvent = (e) => {
         const displayIsFalsy = !Number(this.state.displayValue);
         const value = e.target.value;
+        console.log(value)
         const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
 
-        if( operation.includes(value) ) {
+        if (operation.includes(value)) {
             // checks if event was an operation
             this.handleOperationEvent(e);
             return;
         }
-        if ( displayIsFalsy ) {
+        if (displayIsFalsy) {
             this.setState({
                 displayValue: value,
             })
@@ -86,43 +87,62 @@ class Calculator extends React.Component {
 
     handleOperationEvent = (e) => {
         const value = e.target.value;
+        // check if this.state.operation has an operation -> If it does, execute old operation FIRST
+        // ****** after above is complete 
+        // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
+
+        if ( this.state.operation ) {
+
+        } else {
+
+            // 1. Change this.state.operation to user input 
+            // 2. Change  wFNV to True
+            // 3. 
+
+            this.setState({
+                operation: value,
+                waitingForNewValue: true,
+            })
+
+        }
+
 
         switch (value) {
 
             case 'addition':
-             //this.addNumbers()
-            break;
+                //this.addNumbers()
+                break;
 
-            case 'subtract': 
-            // this.subtractNumbers()
-            break;
+            case 'subtract':
+
+                break;
 
             case 'divide':
-            // this.divideNumbers()
-            break;
+                // this.divideNumbers()
+                break;
 
             case 'multiply':
-            // this.multiplyNumbers()
-            break;
+                // this.multiplyNumbers()
+                break;
 
             case 'percent':
-            // this.percentage()
-            break;
+                // this.percentage()
+                break;
 
             case 'abs':
-            // absolute
-            break;
+                // absolute
+                break;
 
             case 'decimal':
-            // decimal
-            break;
+                // decimal
+                break;
 
             case 'equal':
-            // equal
-            break;
+                // equal
+                break;
 
             default:
-            break;
+                break;
         }
     };
 
