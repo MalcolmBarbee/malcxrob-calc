@@ -52,8 +52,9 @@ class Calculator extends React.Component {
     //     return num;
     // }
 
-    equal = (num) => {
-
+    equal = (a, b) => {
+    
+    // displayValue (operation) previousValue
     }
 
     decimal = (num) => {
@@ -67,7 +68,6 @@ class Calculator extends React.Component {
         const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
 
         if (operation.includes(value)) {
-            // checks if event was an operation
             this.handleOperationEvent(e);
             return;
         }
@@ -101,11 +101,15 @@ class Calculator extends React.Component {
         // check if this.state.operation has an operation -> If it does, execute old operation FIRST
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
+        if(operate === 'equal' && value === 'equal'){
+            return;
+        }
+        if(!operate && value === 'equal') {
+            return;
+        }
+
 
         if ( !operate ) {
-            // 1. Change this.state.operation to user input 
-            // 2. Change  wFNV to True
-            // 3. ???Profit
             this.setState({
                 operation: value,
                 waitingForNewValue: true,
@@ -113,17 +117,17 @@ class Calculator extends React.Component {
             return;
         }
 
-
+        
         switch (operate) {
 
             case 'addition':
-                //this.addNumbers()
+
                 break;
 
             case 'subtract':
 
-            const previous = Number(this.state.previousValue);
-            const display = Number(this.state.displayValue);
+             const previous = Number(this.state.previousValue);
+             const display = Number(this.state.displayValue);
 
             const newValue = this.subtractNumbers(previous, display).toString();
 
@@ -156,6 +160,14 @@ class Calculator extends React.Component {
                 break;
 
             case 'equal':
+            
+          
+
+            this.setState({
+            previousValue: this.state.displayValue,
+            operation: value,
+            waitingForNewValue: true,
+        })
                 // equal
                 break;
 
