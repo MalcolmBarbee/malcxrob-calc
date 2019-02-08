@@ -102,12 +102,7 @@ class Calculator extends React.Component {
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
 
-        if ( operate ) {
-
-        
-
-        } else {
-
+        if ( !operate ) {
             // 1. Change this.state.operation to user input 
             // 2. Change  wFNV to True
             // 3. ???Profit
@@ -127,6 +122,17 @@ class Calculator extends React.Component {
 
             case 'subtract':
 
+            const previous = Number(this.state.previousValue);
+            const display = Number(this.state.displayValue);
+
+            const newValue = this.subtractNumbers(previous, display).toString();
+
+            this.setState({
+                displayValue: newValue,
+                previousValue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
                 break;
 
             case 'divide':
