@@ -46,7 +46,7 @@ class Calculator extends React.Component {
     percent = (num) => {
         return num / 100;
     }
-    
+
     // posAndNeg = (num) => {
     //     const num = num * -1
     //     return num;
@@ -63,68 +63,108 @@ class Calculator extends React.Component {
     handleButtonEvent = (e) => {
         const displayIsFalsy = !Number(this.state.displayValue);
         const value = e.target.value;
+        console.log(value)
         const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
 
-        if( operation.includes(value) ) {
+        if (operation.includes(value)) {
             // checks if event was an operation
             this.handleOperationEvent(e);
             return;
         }
-        if ( displayIsFalsy ) {
+        if (displayIsFalsy) {
             this.setState({
                 displayValue: value,
             })
             return;
         }
-        let tempStr = this.state.displayValue;
-        tempStr += value;
-        this.setState({
-            displayValue: tempStr,
-        })
+        if (this.state.waitingForNewValue) {
+            const currentDisplay = this.state.displayValue;
+            this.logState()
+            this.setState({
+                previousValue: currentDisplay,
+                displayValue: value,
+                waitingForNewValue: false,
+            }, this.logState)
+        } else {
+            let tempStr = this.state.displayValue;
+            tempStr += value;
+            this.setState({
+                displayValue: tempStr,
+            })
+        }
         // console.log(e.target.value)
     }
 
     handleOperationEvent = (e) => {
         const value = e.target.value;
+        const operate = this.state.operation;
+        // check if this.state.operation has an operation -> If it does, execute old operation FIRST
+        // ****** after above is complete 
+        // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
 
-        switch (value) {
+        if ( !operate ) {
+            // 1. Change this.state.operation to user input 
+            // 2. Change  wFNV to True
+            // 3. ???Profit
+            this.setState({
+                operation: value,
+                waitingForNewValue: true,
+            })
+            return;
+        }
+
+
+        switch (operate) {
 
             case 'addition':
-             //this.addNumbers()
-            break;
+                //this.addNumbers()
+                break;
 
-            case 'subtract': 
-            // this.subtractNumbers()
-            break;
+            case 'subtract':
+
+            const previous = Number(this.state.previousValue);
+            const display = Number(this.state.displayValue);
+
+            const newValue = this.subtractNumbers(previous, display).toString();
+
+            this.setState({
+                displayValue: newValue,
+                previousValue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
+                break;
 
             case 'divide':
-            // this.divideNumbers()
-            break;
+                // this.divideNumbers()
+                break;
 
             case 'multiply':
-            // this.multiplyNumbers()
-            break;
+                // this.multiplyNumbers()
+                break;
 
             case 'percent':
-            // this.percentage()
-            break;
+                // this.percentage()
+                break;
 
             case 'abs':
-            // absolute
-            break;
+                // absolute
+                break;
 
             case 'decimal':
-            // decimal
-            break;
+                // decimal
+                break;
 
             case 'equal':
-            // equal
-            break;
+                // equal
+                break;
 
             default:
-            break;
+                break;
         }
     };
+
+    logState = () => console.log(this.state);
 
     render() {
 
