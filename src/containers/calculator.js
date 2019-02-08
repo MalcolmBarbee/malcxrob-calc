@@ -77,37 +77,49 @@ class Calculator extends React.Component {
             })
             return;
         }
-        let tempStr = this.state.displayValue;
-        tempStr += value;
-        this.setState({
-            displayValue: tempStr,
-        })
+        if (this.state.waitingForNewValue) {
+            const currentDisplay = this.state.displayValue;
+            this.logState()
+            this.setState({
+                previousValue: currentDisplay,
+                displayValue: value,
+                waitingForNewValue: false,
+            }, this.logState)
+        } else {
+            let tempStr = this.state.displayValue;
+            tempStr += value;
+            this.setState({
+                displayValue: tempStr,
+            })
+        }
         // console.log(e.target.value)
     }
 
     handleOperationEvent = (e) => {
         const value = e.target.value;
+        const operate = this.state.operation;
         // check if this.state.operation has an operation -> If it does, execute old operation FIRST
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
 
-        if ( this.state.operation ) {
+        if ( operate ) {
+
+        
 
         } else {
 
             // 1. Change this.state.operation to user input 
             // 2. Change  wFNV to True
-            // 3. 
-
+            // 3. ???Profit
             this.setState({
                 operation: value,
                 waitingForNewValue: true,
             })
-
+            return;
         }
 
 
-        switch (value) {
+        switch (operate) {
 
             case 'addition':
                 //this.addNumbers()
@@ -145,6 +157,8 @@ class Calculator extends React.Component {
                 break;
         }
     };
+
+    logState = () => console.log(this.state);
 
     render() {
 
