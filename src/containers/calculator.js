@@ -15,21 +15,9 @@ class Calculator extends React.Component {
             waitingForNewValue: false
         }
     }
-    addNumbers = (tempStr) => {
-        // let storedStr = []
-        // const value = e.target.value;
-        // const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
-        // // let tempStr = this.state.displayValue;
-        // // tempStr += this.value;
-        // // this.setState({
-        // //     displayValue: tempStr,
-        // //})
-
-        // if(operation.includes(value) === 'addition'){
-        // tempStr.push(storedStr);
-        // }
-        // const num = storedStr + tempStr
-        return;
+    addNumbers = (a, b) => {
+        const num = a + b
+        return num;
     }
     subtractNumbers = (a, b) => {
         const num = a - b
@@ -43,29 +31,22 @@ class Calculator extends React.Component {
         const num = a / b
         return num;
     }
-    percent = (num) => {
-        return num / 100;
+    percent = (num, previous = 1) => {
+        return (num * previous) / 100;
     }
 
-    // posAndNeg = (num) => {
-    //     const num = num * -1
-    //     return num;
-    // }
-
-    equal = (a, b) => {
-    
-    // displayValue (operation) previousValue
+    posAndNeg = (num) => {
+        return num * -1;
     }
 
     decimal = (num) => {
-
+        return num.push('.');
     }
 
     handleButtonEvent = (e) => {
         const displayIsFalsy = !Number(this.state.displayValue);
         const value = e.target.value;
-        console.log(value)
-        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percentage', 'abs', 'equal', 'decimal'];
+        const operation = ['addition', 'subtract', 'divide', 'multiply', 'percent', 'abs', 'equal', 'decimal'];
 
         if (operation.includes(value)) {
             this.handleOperationEvent(e);
@@ -92,10 +73,13 @@ class Calculator extends React.Component {
                 displayValue: tempStr,
             })
         }
-        // console.log(e.target.value)
     }
 
+    
+
     handleOperationEvent = (e) => {
+        const previous = Number(this.state.previousValue);
+        const display = Number(this.state.displayValue);
         const value = e.target.value;
         const operate = this.state.operation;
         // check if this.state.operation has an operation -> If it does, execute old operation FIRST
@@ -107,8 +91,14 @@ class Calculator extends React.Component {
         if(!operate && value === 'equal') {
             return;
         }
-
-
+        if(value === 'percent') {
+            const num = this.percent(display).toString();
+            this.setState ({
+                displayValue: num,
+                waitingForNewValue: true
+            })
+            return;
+        }
         if ( !operate ) {
             this.setState({
                 operation: value,
@@ -116,23 +106,27 @@ class Calculator extends React.Component {
             })
             return;
         }
-
         
         switch (operate) {
 
             case 'addition':
 
+            const sum = this.addNumbers(previous, display).toString();
+
+            this.setState({
+                displayValue: sum,
+                previousValue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
                 break;
 
             case 'subtract':
 
-             const previous = Number(this.state.previousValue);
-             const display = Number(this.state.displayValue);
-
-            const newValue = this.subtractNumbers(previous, display).toString();
+            const difference = this.subtractNumbers(previous, display).toString();
 
             this.setState({
-                displayValue: newValue,
+                displayValue: difference,
                 previousValue: null,
                 operation: value,
                 waitingForNewValue: true,
@@ -140,38 +134,69 @@ class Calculator extends React.Component {
                 break;
 
             case 'divide':
-                // this.divideNumbers()
+
+            const quotient = this.divideNumbers(previous, display).toString();
+
+            this.setState({
+                displayValue: quotient,
+                previousValue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
+                
                 break;
 
             case 'multiply':
-                // this.multiplyNumbers()
+
+            const product = this.multiplyNumbers(previous, display).toString();
+
+            this.setState({
+                displayValue: product,
+                previousValue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
+                
                 break;
 
             case 'percent':
-                // this.percentage()
+
+            const margin = this.percent(display).toString();
+
+            this.setState({
+                displayValue: margin,
+                operation: value,
+                waitingForNewValue: true,
+            })
                 break;
 
             case 'abs':
-                // absolute
+
+            const newValue5 = this.posAndNeg(display).toString();
+
+            this.setState({
+                displayValue: newValue5,
+                previousValue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
                 break;
 
             case 'decimal':
-                // decimal
+
                 break;
 
             case 'equal':
-            
-          
-
+    
             this.setState({
             previousValue: this.state.displayValue,
             operation: value,
             waitingForNewValue: true,
         })
-                // equal
                 break;
 
             default:
+
                 break;
         }
     };
