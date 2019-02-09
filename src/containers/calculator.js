@@ -52,7 +52,8 @@ class Calculator extends React.Component {
             this.handleOperationEvent(e);
             return;
         }
-        if (displayIsFalsy) {
+        if (this.state.displayValue === '0') {
+        // if (displayIsFalsy) {
             this.setState({
                 displayValue: value,
             })
