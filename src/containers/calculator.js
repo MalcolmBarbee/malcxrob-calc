@@ -206,15 +206,7 @@ class Calculator extends React.Component {
                 break;
 
             case 'decimal':
-
-            const decimal = this.decimal(display).toString();
-
-            this.setState({
-                displayValue: decimal,
-                previousvalue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
+            
                 break;
 
             case 'equal':
