@@ -231,12 +231,12 @@ class Calculator extends React.Component {
                     <Buttons className='col-3' name={'7'} value={'7'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'8'} value={'8'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'9'} value={'9'} getValue={this.handleButtonEvent} />
-                    <Buttons className='col-3' name={'x'} color={'orange'} value='multiply' getValue={this.handleButtonEvent} />
+                    <Buttons className='col-3' name={'×'} color={'orange'} value='multiply' getValue={this.handleButtonEvent} />
 
                     <Buttons className='col-3' name={'4'} value={'4'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'5'} value={'5'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'6'} value={'6'} getValue={this.handleButtonEvent} />
-                    <Buttons className='col-3' name={'-'} color={'orange'} value='subtract' getValue={this.handleButtonEvent} />
+                    <Buttons className='col-3' name={'−'} color={'orange'} value='subtract' getValue={this.handleButtonEvent} />
 
                     <Buttons className='col-3' name={'1'} value='1' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'2'} value='2' getValue={this.handleButtonEvent} />
