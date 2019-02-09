@@ -31,7 +31,10 @@ class Calculator extends React.Component {
         const num = a / b
         return num;
     }
-    percent = (num, previous = 1) => {
+    percent = (num, previous) => {
+        if(previous === 0) {
+            previous = 1;
+        }
         return (num * previous) / 100;
     }
 
@@ -40,7 +43,7 @@ class Calculator extends React.Component {
     }
 
     decimal = (num) => {
-        return num.push('.');
+       return num + '.' ;
     }
 
     handleButtonEvent = (e) => {
@@ -111,6 +114,14 @@ class Calculator extends React.Component {
             })
             return;
         }
+        if(value === 'abs') {
+            const num = this.posAndNeg(display, previous).toString();
+            this.setState ({
+                displayValue: num,
+                waitingForNewValue: true
+            })
+            return;
+        }
         if ( !operate ) {
             this.setState({
                 operation: value,
@@ -173,7 +184,7 @@ class Calculator extends React.Component {
 
             case 'percent':
 
-            const margin = this.percent(display).toString();
+            const margin = this.percent(display, previous).toString();
 
             this.setState({
                 displayValue: margin,
@@ -184,10 +195,10 @@ class Calculator extends React.Component {
 
             case 'abs':
 
-            const newValue5 = this.posAndNeg(display).toString();
+            const negative = this.posAndNeg(display).toString();
 
             this.setState({
-                displayValue: newValue5,
+                displayValue: negative,
                 previousValue: null,
                 operation: value,
                 waitingForNewValue: true,
@@ -196,6 +207,14 @@ class Calculator extends React.Component {
 
             case 'decimal':
 
+            const decimal = this.decimal(display).toString();
+
+            this.setState({
+                displayValue: decimal,
+                previousvalue: null,
+                operation: value,
+                waitingForNewValue: true,
+            })
                 break;
 
             case 'equal':
