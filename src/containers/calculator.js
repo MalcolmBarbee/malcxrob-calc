@@ -32,7 +32,7 @@ class Calculator extends React.Component {
         return num;
     }
     percent = (num, previous = 1) => {
-        return num / 100;
+        return (num * previous) / 100;
     }
 
     posAndNeg = (num) => {
@@ -95,7 +95,6 @@ class Calculator extends React.Component {
             const num = this.percent(display).toString();
             this.setState ({
                 displayValue: num,
-                operation: value,
                 waitingForNewValue: true
             })
             return;
@@ -107,9 +106,6 @@ class Calculator extends React.Component {
             })
             return;
         }
-
-        // const previous = Number(this.state.previousValue);
-        // const display = Number(this.state.displayValue);
         
         switch (operate) {
 
@@ -184,14 +180,10 @@ class Calculator extends React.Component {
                 operation: value,
                 waitingForNewValue: true,
             })
-
-                // absolute
                 break;
 
             case 'decimal':
 
-
-                // decimal
                 break;
 
             case 'equal':
