@@ -85,6 +85,17 @@ class Calculator extends React.Component {
         // check if this.state.operation has an operation -> If it does, execute old operation FIRST
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
+        if ( value === 'decimal' ) {
+            let tempStr = this.state.displayValue;
+            if(tempStr.includes('.')) {
+                return;
+            } 
+            tempStr += '.'
+            this.setState ({
+                displayValue: tempStr,
+            })
+            return;
+        }
         if(operate === 'equal' && value === 'equal'){
             return;
         }
