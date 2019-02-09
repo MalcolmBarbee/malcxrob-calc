@@ -92,7 +92,7 @@ class Calculator extends React.Component {
             return;
         }
         if(value === 'percent') {
-            const num = this.percent(display).toString();
+            const num = this.percent(display, previous).toString();
             this.setState ({
                 displayValue: num,
                 waitingForNewValue: true
