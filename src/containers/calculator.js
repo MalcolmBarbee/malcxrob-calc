@@ -233,8 +233,7 @@ class Calculator extends React.Component {
     handleClearButton = () => {
         const display = this.state.displayValue
 
-        if (this.state.operation === 'equal' && !this.state.previousValue){
-
+        if (this.state.operation === 'equal' && !this.state.previousValue) {
             return (
                 <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
             )
@@ -254,21 +253,25 @@ class Calculator extends React.Component {
     handleDynamicDisplay = () => {
         const length = this.state.displayValue.length;
         console.log(length)
-        switch (length) {
 
-            case 11 || 12:
-                return <Display className={'text-right py-3 px-3 bg-dark overflow-auto display-3 text-light p-1 col-12'} value={this.state.displayValue} />
-
-            case 13 || 14 || 15:
-                return <Display className={'text-right py-4 px-3 bg-dark overflow-auto display-4 text-light p-1 col-12'} value={this.state.displayValue} />
-
-            case 17:
-                return <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-3 text-light p-1 col-12'} value={this.state.displayValue} />
-
-
-            default:
-                return <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
-
+        if (length >= 11 && length < 13) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto display-3 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 13 && length < 16) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto display-4 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 16 && length < 21) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto h1 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 21 && length < 26) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto h2 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 26 && length < 30) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto h3 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 30 && length < 35) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto h4 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 35 && length < 40) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto h5 text-light p-1 col-12'} value={this.state.displayValue} />
+        } else if (length >= 40 && length < 49) {
+            return <Display className={'text-right py-3 px-3 bg-dark overflow-auto h6 text-light p-1 col-12'} value={this.state.displayValue} />
+    }else {
+            return <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
         }
 
     }
