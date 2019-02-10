@@ -90,6 +90,13 @@ class Calculator extends React.Component {
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
         if ( value === 'decimal' ) {
+            if( this.state.waitingForNewValue) {
+                this.setState ({
+                    displayValue: '0.',
+                    waitingForNewValue: false,
+                })
+                return;
+            }
             let tempStr = this.state.displayValue;
             if(tempStr.includes('.')) {
                 return;
@@ -223,6 +230,11 @@ class Calculator extends React.Component {
                 break;
         }
     };
+
+    handleClearButton = () => {
+        const display = this.state.displayValue
+
+    }
 
     logState = () => console.log(this.state);
 
