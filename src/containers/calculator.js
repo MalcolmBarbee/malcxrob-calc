@@ -9,7 +9,7 @@ class Calculator extends React.Component {
         super(props);
 
         this.state = {
-            displayValue: '0',
+            displayValue: 0,
             previousValue: null,
             operation: null,
             waitingForNewValue: false
@@ -32,7 +32,7 @@ class Calculator extends React.Component {
         return num;
     }
     percent = (num, previous) => {
-        if(previous === 0) {
+        if (previous === 0) {
             previous = 1;
         }
         return (num * previous) / 100;
@@ -43,7 +43,7 @@ class Calculator extends React.Component {
     }
 
     decimal = (num) => {
-       return num + '.' ;
+        return num + '.';
     }
 
     handleButtonEvent = (e) => {
@@ -51,12 +51,28 @@ class Calculator extends React.Component {
         const value = e.target.value;
         const operation = ['addition', 'subtract', 'divide', 'multiply', 'percent', 'abs', 'equal', 'decimal'];
 
+        if (value === 'C') {
+            this.setState({
+                displayValue: 0,
+            })
+            return;
+        }
+        if (value === 'AC') {
+            this.setState({
+                displayValue: 0,
+                previousValue: null,
+                operation: null,
+                waitingForNewValue: false
+            }
+            )
+            return;
+        }
         if (operation.includes(value)) {
             this.handleOperationEvent(e);
             return;
         }
-        if (this.state.displayValue === '0') {
-        // if (displayIsFalsy) {
+        if (this.state.displayValue === '0' || this.state.displayValue === 0) {
+            // if (displayIsFalsy) {
             this.setState({
                 displayValue: value,
             })
@@ -79,7 +95,7 @@ class Calculator extends React.Component {
         }
     }
 
-    
+
 
     handleOperationEvent = (e) => {
         const previous = Number(this.state.previousValue);
@@ -89,41 +105,46 @@ class Calculator extends React.Component {
         // check if this.state.operation has an operation -> If it does, execute old operation FIRST
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
-        if ( value === 'decimal' ) {
-            if( this.state.waitingForNewValue) {
-                this.setState ({
+        if (value === 'decimal') {
+            if (this.state.waitingForNewValue) {
+                this.setState({
                     displayValue: '0.',
                     waitingForNewValue: false,
                 })
                 return;
             }
-            let tempStr = this.state.displayValue;
-            if(tempStr.includes('.')) {
+            let tempStr = '';
+            if (!this.state.displayValue) {
+                tempStr = '0'
+            } else {
+                tempStr = this.state.displayValue;
+            }
+            if (tempStr.includes('.')) {
                 return;
-            } 
+            }
             tempStr += '.'
-            this.setState ({
+            this.setState({
                 displayValue: tempStr,
             })
             return;
         }
-        if(operate === 'equal' && value === 'equal'){
+        if (operate === 'equal' && value === 'equal') {
             return;
         }
-        if(!operate && value === 'equal') {
+        if (!operate && value === 'equal') {
             return;
         }
-        if(value === 'percent') {
+        if (value === 'percent') {
             const num = this.percent(display, previous).toString();
-            this.setState ({
+            this.setState({
                 displayValue: num,
                 waitingForNewValue: true
             })
             return;
         }
-        if(value === 'abs') {
+        if (value === 'abs') {
             const num = this.posAndNeg(display, previous).toString();
-            this.setState ({
+            this.setState({
                 displayValue: num,
                 waitingForNewValue: true
             })
@@ -137,101 +158,101 @@ class Calculator extends React.Component {
             })
             return;
         }
-        if ( !operate ) {
+        if (!operate) {
             this.setState({
                 operation: value,
                 waitingForNewValue: true,
             })
             return;
         }
-        
+
         switch (operate) {
 
             case 'addition':
 
-            const sum = this.addNumbers(previous, display).toString();
+                const sum = this.addNumbers(previous, display).toString();
 
-            this.setState({
-                displayValue: sum,
-                previousValue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
+                this.setState({
+                    displayValue: sum,
+                    previousValue: null,
+                    operation: value,
+                    waitingForNewValue: true,
+                })
                 break;
 
             case 'subtract':
 
-            const difference = this.subtractNumbers(previous, display).toString();
+                const difference = this.subtractNumbers(previous, display).toString();
 
-            this.setState({
-                displayValue: difference,
-                previousValue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
+                this.setState({
+                    displayValue: difference,
+                    previousValue: null,
+                    operation: value,
+                    waitingForNewValue: true,
+                })
                 break;
 
             case 'divide':
 
-            const quotient = this.divideNumbers(previous, display).toString();
+                const quotient = this.divideNumbers(previous, display).toString();
 
-            this.setState({
-                displayValue: quotient,
-                previousValue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
-                
+                this.setState({
+                    displayValue: quotient,
+                    previousValue: null,
+                    operation: value,
+                    waitingForNewValue: true,
+                })
+
                 break;
 
             case 'multiply':
 
-            const product = this.multiplyNumbers(previous, display).toString();
+                const product = this.multiplyNumbers(previous, display).toString();
 
-            this.setState({
-                displayValue: product,
-                previousValue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
-                
+                this.setState({
+                    displayValue: product,
+                    previousValue: null,
+                    operation: value,
+                    waitingForNewValue: true,
+                })
+
                 break;
 
-            case 'percent':
+            // case 'percent':
 
-            const margin = this.percent(display, previous).toString();
+            // const margin = this.percent(display, previous).toString();
 
-            this.setState({
-                displayValue: margin,
-                operation: value,
-                waitingForNewValue: true,
-            })
-                break;
+            // this.setState({
+            //     displayValue: margin,
+            //     operation: value,
+            //     waitingForNewValue: true,
+            // })
+            //     break;
 
-            case 'abs':
+            // case 'abs':
 
-            const negative = this.posAndNeg(display).toString();
+            // const negative = this.posAndNeg(display).toString();
 
-            this.setState({
-                displayValue: negative,
-                previousValue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
-                break;
+            // this.setState({
+            //     displayValue: negative,
+            //     previousValue: null,
+            //     operation: value,
+            //     waitingForNewValue: true,
+            // })
+            //     break;
 
-            case 'decimal':
-            
-                break;
+            // case 'decimal':
 
-            case 'equal':
-    
-            this.setState({
-            previousValue: this.state.displayValue,
-            operation: value,
-            waitingForNewValue: true,
-        })
-                break;
+            //     break;
+
+            //     case 'equal':
+
+            //     this.setState({
+            //     previousValue: this.state.displayValue,
+            //     operation: value,
+            //     waitingForNewValue: true,
+            // })
+            //         break;
 
             default:
 
@@ -241,6 +262,16 @@ class Calculator extends React.Component {
 
     handleClearButton = () => {
         const display = this.state.displayValue
+
+        if (display) {
+            return (
+                <Buttons className='col-3' name={'C'} value={'C'} getValue={this.handleButtonEvent} />
+            )
+        } else {
+            return (
+                <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
+            )
+        }
 
     }
     componentDidUpdate(prevProps, prevState) {
@@ -258,7 +289,7 @@ class Calculator extends React.Component {
                 <div className='row'>
                     <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
 
-                    <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
+                    {this.handleClearButton()}
                     <Buttons className='col-3' name={'%'} value={'percent'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'±'} value={'abs'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'÷'} color={'orange'} value='divide' getValue={this.handleButtonEvent} />
