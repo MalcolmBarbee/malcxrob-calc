@@ -44,7 +44,6 @@ class Calculator extends React.Component {
         return num + '.';
     }
     handleButtonEvent = (e) => {
-        const displayIsFalsy = !Number(this.state.displayValue);
         const value = e.target.value;
         const operation = ['addition', 'subtract', 'divide', 'multiply', 'percent', 'abs', 'equal', 'decimal'];
 
@@ -74,7 +73,7 @@ class Calculator extends React.Component {
             return;
         }
         if (this.state.displayValue === '0' || this.state.displayValue === 0) {
-            // if (displayIsFalsy) {
+
             this.setState({
                 displayValue: value,
             })
@@ -101,9 +100,6 @@ class Calculator extends React.Component {
         const display = Number(this.state.displayValue);
         const value = e.target.value;
         const operate = this.state.operation;
-        // check if this.state.operation has an operation -> If it does, execute old operation FIRST
-        // ****** after above is complete 
-        // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
         if (value === 'decimal') {
             if (this.state.waitingForNewValue) {
                 this.setState({
@@ -252,8 +248,6 @@ class Calculator extends React.Component {
     }
     handleDynamicDisplay = () => {
         const length = this.state.displayValue.length;
-        console.log(length)
-
         if (length >= 11 && length < 13) {
             return <Display className={'text-right py-3 px-3 bg-dark overflow-auto display-3 text-light p-1 col-12'} value={this.state.displayValue} />
         } else if (length >= 13 && length < 16) {
@@ -279,38 +273,27 @@ class Calculator extends React.Component {
         console.log('previous state: ', prevState)
         console.log('current state: ', this.state)
     }
-
-    logState = () => console.log(this.state);
-    // <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
     render() {
-
-
         return (
             <>
                 <div className='row'>
-
                     {this.handleDynamicDisplay()}
-
                     {this.handleClearButton()}
                     <Buttons className='col-3' name={'%'} value={'percent'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'±'} value={'abs'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'÷'} color={'orange'} value='divide' getValue={this.handleButtonEvent} />
-
                     <Buttons className='col-3' name={'7'} value={'7'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'8'} value={'8'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'9'} value={'9'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'×'} color={'orange'} value='multiply' getValue={this.handleButtonEvent} />
-
                     <Buttons className='col-3' name={'4'} value={'4'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'5'} value={'5'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'6'} value={'6'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'−'} color={'orange'} value='subtract' getValue={this.handleButtonEvent} />
-
                     <Buttons className='col-3' name={'1'} value='1' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'2'} value='2' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'3'} value='3' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'+'} color={'orange'} value='addition' getValue={this.handleButtonEvent} />
-
                     <Buttons className='col-6' name={'0'} value='0' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'.'} value='decimal' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'='} color={'orange'} value='equal' getValue={this.handleButtonEvent} />
