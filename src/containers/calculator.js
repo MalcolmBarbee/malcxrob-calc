@@ -146,7 +146,6 @@ class Calculator extends React.Component {
             const num = this.posAndNeg(display, previous).toString();
             this.setState({
                 displayValue: num,
-                waitingForNewValue: true
             })
             return;
         }
