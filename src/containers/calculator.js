@@ -55,7 +55,8 @@ class Calculator extends React.Component {
             this.handleOperationEvent(e);
             return;
         }
-        if (displayIsFalsy) {
+        if (this.state.displayValue === '0') {
+        // if (displayIsFalsy) {
             this.setState({
                 displayValue: value,
             })
@@ -88,6 +89,17 @@ class Calculator extends React.Component {
         // check if this.state.operation has an operation -> If it does, execute old operation FIRST
         // ****** after above is complete 
         // setState({  current operation and store it in this.state.operation && set waitingForNewValue to true  })
+        if ( value === 'decimal' ) {
+            let tempStr = this.state.displayValue;
+            if(tempStr.includes('.')) {
+                return;
+            } 
+            tempStr += '.'
+            this.setState ({
+                displayValue: tempStr,
+            })
+            return;
+        }
         if(operate === 'equal' && value === 'equal'){
             return;
         }
@@ -104,15 +116,6 @@ class Calculator extends React.Component {
         }
         if(value === 'abs') {
             const num = this.posAndNeg(display, previous).toString();
-            this.setState ({
-                displayValue: num,
-                waitingForNewValue: true
-            })
-            return;
-        }
-        if(value === 'decimal') {
-
-            const num = this.decimal(display).toString();
             this.setState ({
                 displayValue: num,
                 waitingForNewValue: true
@@ -203,15 +206,7 @@ class Calculator extends React.Component {
                 break;
 
             case 'decimal':
-
-            const decimal = this.decimal(display).toString();
-
-            this.setState({
-                displayValue: decimal,
-                previousvalue: null,
-                operation: value,
-                waitingForNewValue: true,
-            })
+            
                 break;
 
             case 'equal':
@@ -247,12 +242,12 @@ class Calculator extends React.Component {
                     <Buttons className='col-3' name={'7'} value={'7'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'8'} value={'8'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'9'} value={'9'} getValue={this.handleButtonEvent} />
-                    <Buttons className='col-3' name={'x'} color={'orange'} value='multiply' getValue={this.handleButtonEvent} />
+                    <Buttons className='col-3' name={'×'} color={'orange'} value='multiply' getValue={this.handleButtonEvent} />
 
                     <Buttons className='col-3' name={'4'} value={'4'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'5'} value={'5'} getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'6'} value={'6'} getValue={this.handleButtonEvent} />
-                    <Buttons className='col-3' name={'-'} color={'orange'} value='subtract' getValue={this.handleButtonEvent} />
+                    <Buttons className='col-3' name={'−'} color={'orange'} value='subtract' getValue={this.handleButtonEvent} />
 
                     <Buttons className='col-3' name={'1'} value='1' getValue={this.handleButtonEvent} />
                     <Buttons className='col-3' name={'2'} value='2' getValue={this.handleButtonEvent} />
