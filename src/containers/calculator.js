@@ -129,6 +129,14 @@ class Calculator extends React.Component {
             })
             return;
         }
+        if (this.state.waitingForNewValue && !this.state.previousValue) {
+            console.log(`here!`)
+            this.setState({
+                operation: value,
+                waitingForNewValue: true,
+            })
+            return;
+        }
         if ( !operate ) {
             this.setState({
                 operation: value,
@@ -234,6 +242,10 @@ class Calculator extends React.Component {
     handleClearButton = () => {
         const display = this.state.displayValue
 
+    }
+    componentDidUpdate(prevProps, prevState) {
+        console.log('previous state: ', prevState)
+        console.log('current state: ', this.state)
     }
 
     logState = () => console.log(this.state);
