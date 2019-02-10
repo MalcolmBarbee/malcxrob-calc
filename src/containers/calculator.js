@@ -73,7 +73,6 @@ class Calculator extends React.Component {
             return;
         }
         if (this.state.displayValue === '0' || this.state.displayValue === 0) {
-
             this.setState({
                 displayValue: value,
             })
@@ -81,12 +80,11 @@ class Calculator extends React.Component {
         }
         if (this.state.waitingForNewValue) {
             const currentDisplay = this.state.displayValue;
-            this.logState()
             this.setState({
                 previousValue: currentDisplay,
                 displayValue: value,
                 waitingForNewValue: false,
-            }, this.logState)
+            })
         } else {
             let tempStr = this.state.displayValue;
             tempStr += value;
