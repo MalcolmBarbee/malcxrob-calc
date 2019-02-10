@@ -37,21 +37,24 @@ class Calculator extends React.Component {
         }
         return (num * previous) / 100;
     }
-
     posAndNeg = (num) => {
         return num * -1;
     }
-
     decimal = (num) => {
         return num + '.';
     }
-
     handleButtonEvent = (e) => {
         const displayIsFalsy = !Number(this.state.displayValue);
         const value = e.target.value;
         const operation = ['addition', 'subtract', 'divide', 'multiply', 'percent', 'abs', 'equal', 'decimal'];
 
         if (value === 'C') {
+            if (!this.state.previousValue && this.state.operation) {
+                this.setState({
+                    operation: null,
+                })
+                return;
+            }
             this.setState({
                 displayValue: 0,
             })
@@ -63,8 +66,7 @@ class Calculator extends React.Component {
                 previousValue: null,
                 operation: null,
                 waitingForNewValue: false
-            }
-            )
+            })
             return;
         }
         if (operation.includes(value)) {
@@ -94,9 +96,6 @@ class Calculator extends React.Component {
             })
         }
     }
-
-
-
     handleOperationEvent = (e) => {
         const previous = Number(this.state.previousValue);
         const display = Number(this.state.displayValue);
@@ -164,7 +163,6 @@ class Calculator extends React.Component {
             })
             return;
         }
-
         switch (operate) {
 
             case 'addition':
@@ -217,59 +215,60 @@ class Calculator extends React.Component {
 
                 break;
 
-            // case 'percent':
+            case 'equal':
 
-            // const margin = this.percent(display, previous).toString();
+                this.setState({
+                    previousValue: this.state.displayValue,
+                    operation: value,
+                    waitingForNewValue: true,
+                })
+                break;
 
-            // this.setState({
-            //     displayValue: margin,
-            //     operation: value,
-            //     waitingForNewValue: true,
-            // })
-            //     break;
-
-            // case 'abs':
-
-            // const negative = this.posAndNeg(display).toString();
-
-            // this.setState({
-            //     displayValue: negative,
-            //     previousValue: null,
-            //     operation: value,
-            //     waitingForNewValue: true,
-            // })
-            //     break;
-
-            // case 'decimal':
-
-            //     break;
-
-            //     case 'equal':
-
-            //     this.setState({
-            //     previousValue: this.state.displayValue,
-            //     operation: value,
-            //     waitingForNewValue: true,
-            // })
-            //         break;
 
             default:
 
                 break;
         }
     };
-
     handleClearButton = () => {
         const display = this.state.displayValue
 
+        if (this.state.operation === 'equal' && !this.state.previousValue){
+
+            return (
+                <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
+            )
+        }
         if (display) {
             return (
                 <Buttons className='col-3' name={'C'} value={'C'} getValue={this.handleButtonEvent} />
             )
-        } else {
+        }
+        else {
             return (
                 <Buttons className='col-3' name={'AC'} value={'AC'} getValue={this.handleButtonEvent} />
             )
+        }
+
+    }
+    handleDynamicDisplay = () => {
+        const length = this.state.displayValue.length;
+        console.log(length)
+        switch (length) {
+
+            case 11 || 12:
+                return <Display className={'text-right py-3 px-3 bg-dark overflow-auto display-3 text-light p-1 col-12'} value={this.state.displayValue} />
+
+            case 13 || 14 || 15:
+                return <Display className={'text-right py-4 px-3 bg-dark overflow-auto display-4 text-light p-1 col-12'} value={this.state.displayValue} />
+
+            case 17:
+                return <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-3 text-light p-1 col-12'} value={this.state.displayValue} />
+
+
+            default:
+                return <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
+
         }
 
     }
@@ -279,14 +278,15 @@ class Calculator extends React.Component {
     }
 
     logState = () => console.log(this.state);
-
+    // <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
     render() {
 
 
         return (
             <>
                 <div className='row'>
-                    <Display className={'text-right py-2 px-3 bg-dark overflow-auto display-2 text-light p-1 col-12'} value={this.state.displayValue} />
+
+                    {this.handleDynamicDisplay()}
 
                     {this.handleClearButton()}
                     <Buttons className='col-3' name={'%'} value={'percent'} getValue={this.handleButtonEvent} />

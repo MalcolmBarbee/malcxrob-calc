@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <div className='container' style={{ 'margin': '30px auto', 'width': '50%' }}>
+        <div className='container' style={{ 'margin': 'auto', 'width': '50%' }}>
           <Calculator />
         </div>
       </>
